@@ -24,7 +24,7 @@ export interface TEvent {
   isFree?: boolean;
 
   capacity?: number;
-  attendees?: Types.ObjectId[]; // 🔥 FIXED
+  attendees?: Types.ObjectId[];
 
   status?: "upcoming" | "ongoing" | "completed" | "cancelled";
 
@@ -39,6 +39,6 @@ export interface TEvent {
     quantity: number;
   }[];
 
-  createdAt?: Date;
-  updatedAt?: Date;
+  // createdAt?: Date;
+  // updatedAt?: Date;
 }
