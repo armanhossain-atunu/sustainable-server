@@ -35,5 +35,28 @@ const getMessages = async (req: Request, res: Response) => {
         });
     }
 };
+// delete message
+const deleteMessage = async (req: Request, res: Response) => {
+    try {
+        const deletedMessage = await Message.findByIdAndDelete(req.params.id);
+        if (!deletedMessage) {
+            return res.status(404).json({
+                success: false,
+                message: 'message not found',
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'message deleted successfully',
+            data: null,
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete message',
+            error: err.message,
+        });
+    }
+};
 
-export const MessageController = { createMessage, getMessages };
+export const MessageController = { createMessage, getMessages, deleteMessage };
