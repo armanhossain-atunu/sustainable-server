@@ -22,7 +22,19 @@ import { Event } from '../models/product.model';
 // Get all products
  const getProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Event.find();
+    const { search } = req.query;
+    let filter = {};
+    if (search && typeof search === 'string') {
+      const regex = new RegExp(search, 'i');
+      filter = {
+        $or: [
+          { title: regex },
+          { description: regex },
+          { category: regex },
+        ],
+      };
+    }
+    const products = await Event.find(filter);
     res.status(200).json({
       success: true,
       message: 'product fetched successfully',

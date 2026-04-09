@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { TEvent } from "../types/product.interface";
+import { TProduct } from "../types/product.interface";
 
-const eventSchema = new Schema<TEvent>(
+const eventSchema = new Schema<TProduct>(
   {
     title: { type: String, required: true, trim: true },
     slug: { type: String, required: true, unique: true },
@@ -49,4 +49,4 @@ const eventSchema = new Schema<TEvent>(
   }
 );
 
-export const Event = model<TEvent>("Event", eventSchema);
+export const Event = model<TProduct>("Event", eventSchema);

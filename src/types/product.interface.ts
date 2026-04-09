@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-export interface TEvent {
+export interface TProduct {
   title: string;
   slug: string;
   description: string;
@@ -15,12 +15,12 @@ export interface TEvent {
   organizer: string;
   organizerContact?: string;
 
-  image?: string;
-  gallery?: string[];
+  image: string;
+  gallery: string[];
 
-  category?: string; // OR Types.ObjectId (better)
-
-  price?: number;
+  category: string; 
+  price: number;
+  discountPrice?: number;
   isFree?: boolean;
 
   capacity?: number;
