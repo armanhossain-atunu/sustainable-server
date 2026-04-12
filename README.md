@@ -94,15 +94,6 @@ If you want to run this project locally on your machine, follow these steps:
    BCRYPT_SALT_ROUNDS=12
    ```
 
-   ```env
-   PORT=5000
-   MONGODB_URI=mongodb+srv://sustainable:h9CcPuyKUYnaM2nJ@cluster0.zuak2s6.mongodb.net/?appName=Cluster0
-   BCRYPT_SALT_ROUNDS=12
-   JWT_SECRET=833c4e29007e67507ba98c3fa5dd68c7
-   JWT_EXPIRES_IN=7d
-   GEMINI_API_KEY=AIzaSyA6Zb8wadrkYudiQ1gq-BlrxSMxHG4OySY
-   ```
-
 3. **Start the Development Server**
    Run the dev script. It uses `ts-node-dev` for fast reloading during development:
    ```bash
