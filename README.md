@@ -94,6 +94,12 @@ If you want to run this project locally on your machine, follow these steps:
    BCRYPT_SALT_ROUNDS=12
    ```
 
+<<<<<<< HEAD
+=======
+   
+   
+
+>>>>>>> ee03b76 (Products Service Request controllers api complate just test waite)
 3. **Start the Development Server**
    Run the dev script. It uses `ts-node-dev` for fast reloading during development:
    ```bash
