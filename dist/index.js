@@ -16,7 +16,7 @@ exports.default = handler;
 const app_1 = __importDefault(require("../src/app"));
 function handler(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, app_1.default)(req, res); // 🔥 MUST
+        yield (0, app_1.default)(req, res);
         return (0, app_1.default)(req, res);
     });
 }

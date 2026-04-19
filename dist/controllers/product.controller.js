@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productControllers = void 0;
 const product_model_1 = require("../models/product.model");
+const serviceRequest_model_1 = require("../models/serviceRequest.model");
 // Create product
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -32,7 +33,19 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 // Get all products
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const products = yield product_model_1.Event.find();
+        const { search } = req.query;
+        let filter = {};
+        if (search && typeof search === 'string') {
+            const regex = new RegExp(search, 'i');
+            filter = {
+                $or: [
+                    { title: regex },
+                    { description: regex },
+                    { category: regex },
+                ],
+            };
+        }
+        const products = yield product_model_1.Event.find(filter);
         res.status(200).json({
             success: true,
             message: 'product fetched successfully',
@@ -119,10 +132,111 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
+const createServiceRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const savedServiceRequest = yield serviceRequest_model_1.ServiceRequest.create(req.body);
+        res.status(201).json({
+            success: true,
+            message: 'Service request created successfully',
+            data: savedServiceRequest,
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to create service request',
+            error: err.message,
+        });
+    }
+});
+const getServiceRequests = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { search } = req.query;
+        let filter = {};
+        if (search && typeof search === 'string') {
+            const regex = new RegExp(search, 'i');
+            filter = {
+                $or: [
+                    { userName: regex },
+                    { email: regex },
+                    { productName: regex },
+                    { modelNumber: regex },
+                    { phoneNumber: regex },
+                    { location: regex },
+                ],
+            };
+        }
+        const serviceRequests = yield serviceRequest_model_1.ServiceRequest.find(filter).sort({
+            createdAt: -1,
+        });
+        res.status(200).json({
+            success: true,
+            message: 'Service requests fetched successfully',
+            data: serviceRequests,
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch service requests',
+            error: err.message,
+        });
+    }
+});
+const getServiceRequestById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const serviceRequest = yield serviceRequest_model_1.ServiceRequest.findById(req.params.id);
+        if (!serviceRequest) {
+            return res.status(404).json({
+                success: false,
+                message: 'Service request not found',
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Service request fetched successfully',
+            data: serviceRequest,
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch service request',
+            error: err.message,
+        });
+    }
+});
+const deleteServiceRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deletedServiceRequest = yield serviceRequest_model_1.ServiceRequest.findByIdAndDelete(req.params.id);
+        if (!deletedServiceRequest) {
+            return res.status(404).json({
+                success: false,
+                message: 'Service request not found',
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Service request deleted successfully',
+            data: null,
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete service request',
+            error: err.message,
+        });
+    }
+});
 exports.productControllers = {
     createProduct,
     getProducts,
     getProductById,
     updateProduct,
     deleteProduct,
+    createServiceRequest,
+    getServiceRequests,
+    getServiceRequestById,
+    deleteServiceRequest,
 };

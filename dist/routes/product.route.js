@@ -7,6 +7,10 @@ exports.ProductRoutes = void 0;
 const express_1 = __importDefault(require("express"));
 const product_controller_1 = require("../controllers/product.controller");
 const router = express_1.default.Router();
+router.get('/service-requests', product_controller_1.productControllers.getServiceRequests);
+router.get('/service-requests/:id', product_controller_1.productControllers.getServiceRequestById);
+router.post('/service-requests', product_controller_1.productControllers.createServiceRequest);
+router.delete('/service-requests/:id', product_controller_1.productControllers.deleteServiceRequest);
 // Get all events
 router.get('/', product_controller_1.productControllers.getProducts);
 // Get single event
